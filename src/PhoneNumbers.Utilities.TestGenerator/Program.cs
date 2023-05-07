@@ -4,6 +4,7 @@ if (string.IsNullOrWhiteSpace(dataFilePath))
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.Write("The data file to be parsed must be specified with the argument '/dataFilePath='");
+    Console.ForegroundColor = ConsoleColor.White;
     Environment.Exit(-1);
 }
 
@@ -11,6 +12,7 @@ if (!Directory.Exists(dataFilePath))
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.Write($"The data file path {dataFilePath} does not exist.");
+    Console.ForegroundColor = ConsoleColor.White;
     Environment.Exit(-1);
 }
 
