@@ -680,7 +680,7 @@ internal static class TestFileWriter
             }
             else
             {
-                foreach (var inlineData in dataLines.Where(x => x.Hint == 'R').OrderBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
+                foreach (var inlineData in dataLines.Where(x => x.Hint == 'S').OrderBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
                     writer.Write($"    [InlineData(\"{LookUpTrunkCode(countryCode)}{inlineData.NationalDestinationCode}{inlineData.SubscriberNumber}\", \"{inlineData.SubscriberNumber}\")]" + LF);
                 }
