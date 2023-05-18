@@ -58,7 +58,7 @@ internal static class TestFileWriter
             "JE" => "Jersey",
             "JM" => "Jamaica",
             "LC" => "SaintLucia",
-            "LT" => "Lithuania"
+            "LT" => "Lithuania",
             "LV" => "Latvia",
             "KE" => "Kenya",
             "KN" => "SaintKittsAndNevis",
