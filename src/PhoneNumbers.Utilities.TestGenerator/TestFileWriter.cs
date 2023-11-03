@@ -70,6 +70,7 @@ internal static class TestFileWriter
             "MP" => "NorthernMarianaIsland",
             "MS" => "Montserrat",
             "MT" => "Malta",
+            "MX" => "Mexico",
             "NL" => "Netherlands",
             "NG" => "Nigeria",
             "NO" => "Norway",
