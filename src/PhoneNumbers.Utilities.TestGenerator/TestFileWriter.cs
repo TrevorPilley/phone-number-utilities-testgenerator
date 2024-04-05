@@ -54,6 +54,7 @@ internal static class TestFileWriter
             "IE" => "Ireland",
             "IL" => "Israel",
             "IM" => "IsleOfMan",
+            "IS" => "Iceland",
             "IT" => "Italy",
             "JE" => "Jersey",
             "JM" => "Jamaica",
