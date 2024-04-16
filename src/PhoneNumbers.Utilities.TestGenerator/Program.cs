@@ -18,8 +18,7 @@ if (!Directory.Exists(dataFilePath))
 
 foreach (var dataFile in Directory.EnumerateFiles(dataFilePath, "*.txt"))
 {
-    var countryCode = Path.GetFileNameWithoutExtension(dataFile).ToUpperInvariant();
-    var customParser = File.Exists(Path.Combine(Directory.GetParent(Path.GetDirectoryName(dataFile)).FullName, "Parsers", countryCode + "PhoneNumberParser.cs"));
+    Console.WriteLine("Processing file {0}", Path.GetFileName(dataFile));
 
     var solutionRoot = Path.GetDirectoryName(dataFile)!;
 
@@ -28,6 +27,11 @@ foreach (var dataFile in Directory.EnumerateFiles(dataFilePath, "*.txt"))
     {
         solutionRoot = Directory.GetParent(solutionRoot)!.FullName;
     }
+    
+    var countryCode = Path.GetFileNameWithoutExtension(dataFile).ToUpperInvariant();
+    
+    var customParser = File.Exists(
+        Path.Combine(Directory.GetParent(Path.GetDirectoryName(dataFile)).FullName, "Parsers", countryCode + "PhoneNumberParser.cs"));
 
     var testOutputPath = Path.Combine(
         solutionRoot,
@@ -37,6 +41,5 @@ foreach (var dataFile in Directory.EnumerateFiles(dataFilePath, "*.txt"))
 
     var data = DataFileReader.ReadData(dataFile);
 
-    Console.WriteLine("Processing file {0}", Path.GetFileName(dataFile));
     TestFileWriter.WriteTests(countryCode, testOutputPath, customParser, data);
 }
