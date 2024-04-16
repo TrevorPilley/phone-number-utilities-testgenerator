@@ -110,38 +110,52 @@ internal static class TestFileWriter
         string testOutputPath,
         bool customParser,
         List<CountryNumberDataLine> dataLines)
-    {
+    {        
+        var geoFileName = customParser
+            ? $"{countryCode}PhoneNumberParserTests_GeographicPhoneNumber.cs"
+            : $"DefaultPhoneNumberParserTests_{countryCode}_GeographicNumber.cs";
+
+        DeleteFileIfExists(geoFileName);
+        
         if (dataLines.Any(x => x.Kind == 'G'))
         {
-            var geoFileName = customParser
-                ? $"{countryCode}PhoneNumberParserTests_GeographicPhoneNumber.cs"
-                : $"DefaultPhoneNumberParserTests_{countryCode}_GeographicNumber.cs";
-
             using var geoWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, geoFileName), customParser);
             WriteGeoTests(countryCode, geoWriter, dataLines.Where(x => x.Kind == 'G'));
             WriteFileEnd(geoWriter);
         }
 
+        var mobileFileName = customParser
+            ? $"{countryCode}PhoneNumberParserTests_MobilePhoneNumber.cs"
+            : $"DefaultPhoneNumberParserTests_{countryCode}_MobilePhoneNumber.cs";
+
+        DeleteFileIfExists(mobileFileName);
+        
         if (dataLines.Any(x => x.Kind == 'M'))
         {
-            var mobileFileName = customParser
-                ? $"{countryCode}PhoneNumberParserTests_MobilePhoneNumber.cs"
-                : $"DefaultPhoneNumberParserTests_{countryCode}_MobilePhoneNumber.cs";
-
             using var mobileWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, mobileFileName), customParser);
             WriteMobileTests(countryCode, mobileWriter, dataLines.Where(x => x.Kind == 'M'));
             WriteFileEnd(mobileWriter);
         }
 
+        var nonGeoFileName = customParser
+            ? $"{countryCode}PhoneNumberParserTests_NonGeographicPhoneNumber.cs"
+            : $"DefaultPhoneNumberParserTests_{countryCode}_NonGeographicPhoneNumber.cs";
+    
+        DeleteFileIfExists(nonGeoFileName);
+        
         if (dataLines.Any(x => x.Kind == 'N'))
         {
-            var nonGeoFileName = customParser
-                ? $"{countryCode}PhoneNumberParserTests_NonGeographicPhoneNumber.cs"
-                : $"DefaultPhoneNumberParserTests_{countryCode}_NonGeographicPhoneNumber.cs";
-
             using var nonGeoWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, nonGeoFileName), customParser);
             WriteNonGeoTests(countryCode, nonGeoWriter, dataLines.Where(x => x.Kind == 'N'));
             WriteFileEnd(nonGeoWriter);
+        }
+    }
+
+    private static void DeleteFileIfExists(string testFilePath)
+    {
+        if (File.Exists(testFilePath))
+        {
+            File.Delete(testFilePath);
         }
     }
 
@@ -154,11 +168,6 @@ internal static class TestFileWriter
 
     private static StreamWriter WriteFileStart(string countryCode, string testFilePath, bool customParser)
     {
-        if (File.Exists(testFilePath))
-        {
-            File.Delete(testFilePath);
-        }
-
         Console.WriteLine("\tCreating {0}", Path.GetFileName(testFilePath));
 
         var fileStream = File.OpenWrite(testFilePath);
