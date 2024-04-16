@@ -29,9 +29,11 @@ foreach (var dataFile in Directory.EnumerateFiles(dataFilePath, "*.txt"))
         solutionRoot = Directory.GetParent(solutionRoot)!.FullName;
     }
 
-    var testOutputPath = customParser
-        ? Path.Combine(solutionRoot, "test", "PhoneNumbers.Tests", "Parsers")
-        : Path.Combine(solutionRoot, "test", "PhoneNumbers.Data.Tests", "Parsers");
+    var testOutputPath = Path.Combine(
+        solutionRoot,
+        "test",
+        customParser ? "PhoneNumbers.Tests" : "PhoneNumbers.Data.Tests",
+        "Parsers");
 
     var data = DataFileReader.ReadData(dataFile);
 
