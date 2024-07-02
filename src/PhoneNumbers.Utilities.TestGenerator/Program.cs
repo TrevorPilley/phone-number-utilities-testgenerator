@@ -31,7 +31,7 @@ foreach (var dataFile in Directory.EnumerateFiles(dataFilePath, "*.txt"))
     var countryCode = Path.GetFileNameWithoutExtension(dataFile).ToUpperInvariant();
     
     var customParser = File.Exists(
-        Path.Combine(Directory.GetParent(Path.GetDirectoryName(dataFile)).FullName, "Parsers", countryCode + "PhoneNumberParser.cs"));
+        Path.Combine(Directory.GetParent(Path.GetDirectoryName(dataFile))!.FullName, "Parsers", countryCode + "PhoneNumberParser.cs"));
 
     var testOutputPath = Path.Combine(
         solutionRoot,
