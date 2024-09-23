@@ -111,13 +111,13 @@ internal static class TestFileWriter
         string testOutputPath,
         bool customParser,
         List<CountryNumberDataLine> dataLines)
-    {        
+    {
         var geoFileName = customParser
             ? $"{countryCode}PhoneNumberParserTests_GeographicPhoneNumber.cs"
             : $"DefaultPhoneNumberParserTests_{countryCode}_GeographicNumber.cs";
 
         DeleteFileIfExists(geoFileName);
-        
+
         if (dataLines.Any(x => x.Kind == 'G'))
         {
             using var geoWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, geoFileName), customParser);
@@ -130,7 +130,7 @@ internal static class TestFileWriter
             : $"DefaultPhoneNumberParserTests_{countryCode}_MobilePhoneNumber.cs";
 
         DeleteFileIfExists(mobileFileName);
-        
+
         if (dataLines.Any(x => x.Kind == 'M'))
         {
             using var mobileWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, mobileFileName), customParser);
@@ -141,9 +141,9 @@ internal static class TestFileWriter
         var nonGeoFileName = customParser
             ? $"{countryCode}PhoneNumberParserTests_NonGeographicPhoneNumber.cs"
             : $"DefaultPhoneNumberParserTests_{countryCode}_NonGeographicPhoneNumber.cs";
-    
+
         DeleteFileIfExists(nonGeoFileName);
-        
+
         if (dataLines.Any(x => x.Kind == 'N'))
         {
             using var nonGeoWriter = WriteFileStart(countryCode, Path.Combine(testOutputPath, nonGeoFileName), customParser);
@@ -158,6 +158,9 @@ internal static class TestFileWriter
         {
             File.Delete(testFilePath);
         }
+
+        // Sometimes the file doesn't get deleted before we re-create it leaving an invalid file if the new content is shorter.
+        Thread.Sleep(100);
     }
 
     private static void WriteFileEnd(StreamWriter writer)
@@ -262,7 +265,7 @@ internal static class TestFileWriter
                 writer.Write(LF);
                 writer.Write("    [Theory]" + LF);
 
-                if (group.First().NationalDestinationCode.Length > 0)
+                if (group.All(x => x.NationalDestinationCode?.Length > 0))
                 {
                     foreach (var inlineData in group.OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                     {
@@ -296,7 +299,7 @@ internal static class TestFileWriter
                 writer.Write("        Assert.False(mobilePhoneNumber.IsPager);" + LF);
                 writer.Write("        Assert.False(mobilePhoneNumber.IsVirtual);" + LF);
 
-                if (group.First().NationalDestinationCode.Length > 0)
+                if (group.All(x => x.NationalDestinationCode?.Length > 0))
                 {
                     writer.Write("        Assert.Equal(NationalDestinationCode, mobilePhoneNumber.NationalDestinationCode);" + LF);
                 }
@@ -314,7 +317,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == '\0').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -348,7 +351,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(mobilePhoneNumber.IsPager);" + LF);
             writer.Write("        Assert.False(mobilePhoneNumber.IsVirtual);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, mobilePhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -366,7 +369,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'P').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -400,7 +403,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.True(mobilePhoneNumber.IsPager);" + LF);
             writer.Write("        Assert.False(mobilePhoneNumber.IsVirtual);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, mobilePhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -418,7 +421,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'V').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -452,7 +455,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(mobilePhoneNumber.IsPager);" + LF);
             writer.Write("        Assert.True(mobilePhoneNumber.IsVirtual);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, mobilePhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -473,7 +476,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (group.First().NationalDestinationCode.Length > 0)
+            if (group.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in group.OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -509,7 +512,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsPremiumRate);" + LF);
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsSharedCost);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (group.All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, nonGeographicPhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -527,7 +530,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'F').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'F').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -563,7 +566,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsPremiumRate);" + LF);
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsSharedCost);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'F').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, nonGeographicPhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -581,7 +584,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'M').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'M').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -617,7 +620,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsPremiumRate);" + LF);
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsSharedCost);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'M').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, nonGeographicPhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -635,7 +638,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'R').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'R').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -671,7 +674,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.True(nonGeographicPhoneNumber.IsPremiumRate);" + LF);
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsSharedCost);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'R').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, nonGeographicPhoneNumber.NationalDestinationCode);" + LF);
             }
@@ -689,7 +692,7 @@ internal static class TestFileWriter
             writer.Write(LF);
             writer.Write("    [Theory]" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'S').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 foreach (var inlineData in dataLines.Where(x => x.Hint == 'S').OrderBy(x => x.NationalDestinationCode).ThenBy(x => x.SubscriberNumber.Length).ThenBy(x => x.SubscriberNumber))
                 {
@@ -725,7 +728,7 @@ internal static class TestFileWriter
             writer.Write("        Assert.False(nonGeographicPhoneNumber.IsPremiumRate);" + LF);
             writer.Write("        Assert.True(nonGeographicPhoneNumber.IsSharedCost);" + LF);
 
-            if (dataLines.First().NationalDestinationCode.Length > 0)
+            if (dataLines.Where(x => x.Hint == 'S').All(x => x.NationalDestinationCode?.Length > 0))
             {
                 writer.Write("        Assert.Equal(NationalDestinationCode, nonGeographicPhoneNumber.NationalDestinationCode);" + LF);
             }
