@@ -8,7 +8,7 @@ internal static class TestFileWriter
     private static string LookUpTrunkCode(string countryCode) =>
         countryCode switch
         {
-            "AL" or "AT" or "AU" or "BA" or "BE" or "BG" or "BR" or "CH" or "CO" or "DE" or "EG" or "FI" or "FR" or "GB" or "GG" or "HR" or "IE" or "IM" or "IL" or "JE" or "KE" or "MD" or "ME" or "MK" or "NL" or "NG" or "NZ" or "RO" or "RS" or "SE" or "SK" or "SL" or "TR" or "TZ" or "UA" or "XK" or "ZA" => "0",
+            "AL" or "AT" or "AU" or "BA" or "BE" or "BG" or "BR" or "CH" or "DE" or "EG" or "FI" or "FR" or "GB" or "GG" or "HR" or "IE" or "IM" or "IL" or "JE" or "KE" or "MD" or "ME" or "MK" or "NL" or "NG" or "NZ" or "RO" or "RS" or "SE" or "SK" or "SL" or "TR" or "TZ" or "UA" or "XK" or "ZA" => "0",
             "HU" => "06",
             "BY" or "LT" => "8",
             _ => string.Empty,
