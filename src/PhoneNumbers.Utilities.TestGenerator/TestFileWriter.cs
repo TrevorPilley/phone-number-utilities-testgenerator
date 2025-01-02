@@ -43,6 +43,7 @@ internal static class TestFileWriter
             "EE" => "Estonia",
             "EG" => "Egypt",
             "ES" => "Spain",
+            "FO" => "FaroeIslands",
             "FI" => "Finland",
             "FR" => "France",
             "GD" => "Grenada",
