@@ -17,6 +17,7 @@ internal static class TestFileWriter
     private static string CountryCodeToCountryInfoName(string countryCode) =>
         countryCode switch
         {
+            "AD" => "Andorra",
             "AG" => "AntiguaAndBarbuda",
             "AI" => "Anguilla",
             "AL" => "Albania",
