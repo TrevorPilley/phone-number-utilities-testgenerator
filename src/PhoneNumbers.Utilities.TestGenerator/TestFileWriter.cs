@@ -86,6 +86,7 @@ internal static class TestFileWriter
             "NG" => "Nigeria",
             "NO" => "Norway",
             "NZ" => "NewZealand",
+            "OM" => "Oman",
             "PG" => "PapuaNewGuinea",
             "PL" => "Poland",
             "PR" => "PuertoRico",
