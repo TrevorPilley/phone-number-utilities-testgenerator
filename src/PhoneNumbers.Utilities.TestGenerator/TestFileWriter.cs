@@ -91,6 +91,7 @@ internal static class TestFileWriter
             "PR" => "PuertoRico",
             "PT" => "Portugal",
             "RO" => "Romania",
+            "QA" => "Qatar",
             "RS" => "Serbia",
             "SE" => "Sweden",
             "SG" => "Singapore",
