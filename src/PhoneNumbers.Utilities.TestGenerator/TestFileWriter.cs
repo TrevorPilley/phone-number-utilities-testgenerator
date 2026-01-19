@@ -54,6 +54,7 @@ internal static class TestFileWriter
             "GB" => "UnitedKingdom",
             "GG" => "Guernsey",
             "GI" => "Gibraltar",
+            "GL" => "Greenland",
             "GR" => "Greece",
             "GU" => "Guam",
             "HK" => "HongKong",
