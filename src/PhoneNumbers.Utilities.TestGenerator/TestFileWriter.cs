@@ -10,7 +10,7 @@ internal static class TestFileWriter
         {
             "AE" or "AL" or "AT" or "AU" or "AX" or "BA" or "BE" or "BG" or "BR" or "CH" or "DE" or "EG" or "FI" or "FR" or "GB" or "GG" or "GF" or "GP" or "HR" or "IE" or "IM" or "IL" or "JE" or "JO" or "KE" or "MD" or "ME" or "MK" or "MQ" or "NL" or "NG" or "NZ" or "PE" or "RE" or "RO" or "RS" or "SA" or "SE" or "SK" or "SI" or "TR" or "TZ" or "UA" or "UG" or "XK" or "YE" or "YT" or "ZA" => "0",
             "HU" => "06",
-            "BY" or "LT" or "RU" => "8",
+            "BY" or "KZ" or "LT" or "RU" => "8",
             _ => string.Empty,
         };
 
@@ -78,6 +78,7 @@ internal static class TestFileWriter
             "KE" => "Kenya",
             "KN" => "SaintKittsAndNevis",
             "KY" => "CaymanIslands",
+            "KZ" => "Kazakhstan",
             "MC" => "Monaco",
             "MD" => "Moldova",
             "ME" => "Montenegro",
