@@ -204,7 +204,7 @@ internal static class TestFileWriter
         writer.Write(LF);
 
         writer.Write("/// <summary>" + LF);
-        writer.Write($"/// Contains unit tests for the <see cref=\"{(customParser ? countryCode : "Default")}PhoneNumberParser\"/> class for {CountryCodeToCountryInfoName(countryCode).Humanize()} <see cref=\"PhoneNumber\"/>s." + LF);
+        writer.Write($"/// Contains unit tests for the <see cref=\"{(customParser ? countryCode : "Default")}PhoneNumberParser\"/> class for {CountryCodeToCountryInfoName(countryCode).Humanize(LetterCasing.Title)} <see cref=\"PhoneNumber\"/>s." + LF);
         writer.Write("/// </summary>" + LF);
 
         writer.Write($"public class {Path.GetFileNameWithoutExtension(testFilePath)}" + LF);
